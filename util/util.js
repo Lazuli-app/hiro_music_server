@@ -1,20 +1,19 @@
-import yt from "./ytdl.js";
 import fb from "./firebase.js";
 import fs from "fs";
 const util = {
   downloadAudio({ stream, videoId }) {
-    const file = fs.createWriteStream(`./audios/${videoId}.m4a`, {
+    const file = fs.createWriteStream(`${AUDIO_BASE_PATH}${videoId}.m4a`, {
       emitClose: false,
     });
     stream.pipe(file);
     return file;
   },
   uploadAudio(videoId) {
-    const audioFile = fs.readFileSync(`./audios/${videoId}.m4a`);
+    const audioFile = fs.readFileSync(`${AUDIO_BASE_PATH}${videoId}.m4a`);
     return fb.uploadAudio({ audioFile, videoId });
   },
   deleteLocalAudio(videoId) {
-    fs.unlink(`./audios/${videoId}.m4a`, (err) => {
+    fs.unlink(`${AUDIO_BASE_PATH}${videoId}.m4a`, (err) => {
       if (err && err.code == "ENOENT") {
         console.info("File doesn't exist, won't remove it.");
       } else if (err) {

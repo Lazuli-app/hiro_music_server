@@ -12,6 +12,8 @@ const port = process.env.port || 3000;
 //   res.send(data);
 // });
 
+app.get("/favicon.ico", (req, res) => res.status(204));
+
 app.get("/stream/:videoId", async (req, res) => {
   req.setTimeout(60 * 1000);
   const videoId = req.params.videoId;
