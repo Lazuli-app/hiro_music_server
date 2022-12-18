@@ -5,7 +5,6 @@ const yt = {
     const { info, contentLength } = await this.getInfo(videoId);
     return { stream: ytdl.downloadFromInfo(info), contentLength };
   },
-
   async getInfo(videoId) {
     const info = await ytdl.getInfo(videoId);
     const formats = info.formats.filter(

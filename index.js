@@ -11,7 +11,6 @@ const port = process.env.port || 3000;
 //   console.log(data);
 //   res.send(data);
 // });
-
 app.get("/favicon.ico", (req, res) => res.status(204));
 
 app.get("/stream/:videoId", async (req, res) => {

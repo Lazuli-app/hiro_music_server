@@ -8,6 +8,7 @@ const util = {
     stream.pipe(file);
     return file;
   },
+
   uploadAudio(videoId) {
     const audioFile = fs.readFileSync(`${AUDIO_BASE_PATH}${videoId}.m4a`);
     return fb.uploadAudio({ audioFile, videoId });
