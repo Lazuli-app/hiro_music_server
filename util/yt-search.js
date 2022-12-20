@@ -15,11 +15,11 @@ const ytsr = {
       temp.timestamp = e.timestamp;
       temp.author = e.author.name;
       temp.image = `https://img.youtube.com/vi/${e.videoId}/maxresdefault.jpg`;
-      console.log(temp);
+      // console.log(temp);
       hasil.push(temp);
       count += 1;
     });
-    console.log("jalan", hasil);
+    // console.log("jalan", hasil);
     return hasil;
   },
 };
