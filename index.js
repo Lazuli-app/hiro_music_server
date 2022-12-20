@@ -2,6 +2,7 @@ import yt from "./util/ytdl.js";
 import express from "express";
 import fb from "./util/firebase.js";
 import util from "./util/util.js";
+import ytsr from "./util/yt-search.js";
 const app = express();
 const port = process.env.port || 3000;
 
@@ -31,6 +32,7 @@ app.get("/stream/:videoId", async (req, res) => {
       "Accept-Ranges": "bytes",
       "Content-Length": contentLength,
       "Content-Type": "audio/mp4",
+      Connection: "keep-alive",
     });
     // Pipe audio stream
     const data = stream.pipe(res);
@@ -47,10 +49,16 @@ app.get("/stream/:videoId", async (req, res) => {
   }
 });
 
+app.get("/search/:keyword", async (req, res) => {
+  res.json(await ytsr.search(req.params.keyword));
+});
+
 app.get("*", (req, res) => {
   res.send("Hello World!! ^_^v");
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log("App Listening On Port " + port);
 });
+
+server.keepAliveTimeout = 60 * 1000;
