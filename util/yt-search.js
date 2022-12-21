@@ -14,7 +14,7 @@ const ytsr = {
       temp.seconds = e.seconds;
       temp.timestamp = e.timestamp;
       temp.author = e.author.name;
-      temp.image = `https://img.youtube.com/vi/${e.videoId}/hqdefault.jpg`;
+      temp.image = `https://img.youtube.com/vi/${e.videoId}/hq720.jpg`;
       // console.log(temp);
       hasil.push(temp);
       count += 1;
