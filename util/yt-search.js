@@ -2,7 +2,7 @@ import yts from "yt-search";
 
 const ytsr = {
   async search(keyword) {
-    const r = await yts(keyword);
+    const r = await yts({ query: keyword, gl: "ID", hl: "en" });
     let count = 0;
     let hasil = [];
     r.videos.forEach((e) => {
@@ -15,6 +15,7 @@ const ytsr = {
       temp.timestamp = e.timestamp;
       temp.author = e.author.name;
       temp.image = `https://img.youtube.com/vi/${e.videoId}/maxresdefault.jpg`;
+      temp.alternativeImage = `https://img.youtube.com/vi/${e.videoId}/hqdefault.jpg`;
       // console.log(temp);
       hasil.push(temp);
       count += 1;
