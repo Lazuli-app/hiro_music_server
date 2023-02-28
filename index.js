@@ -26,7 +26,7 @@ app.get("/stream/:videoId", async (req, res) => {
   // If Audio not exist in storage
   else {
     const { stream, contentLength } = await yt.getAudioStream(videoId);
-    //util.assignAudioToFirebase({ stream, videoId });
+    util.assignAudioToFirebase({ stream, videoId });
     // Set response header
     res.set({
       "Accept-Ranges": "bytes",
@@ -36,7 +36,6 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     // Pipe audio stream
     const data = stream.pipe(res);
-    console.log("jalan")
     data.on("close", () => {
       console.log("destroyed");
     });
