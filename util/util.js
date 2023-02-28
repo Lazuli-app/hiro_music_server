@@ -2,7 +2,12 @@ import fb from "./firebase.js";
 import fs from "fs";
 const util = {
   downloadAudio({ stream, videoId }) {
+    let byte = 0
     console.log("start download")
+    stream.on("data",function(chunk){
+      byte+=chunk.length
+      console.log(byte)
+    })
     const file = fs.createWriteStream(
       `${process.env.AUDIO_BASE_PATH}${videoId}.m4a`,
       {
