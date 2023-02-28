@@ -2,6 +2,7 @@ import fb from "./firebase.js";
 import fs from "fs";
 const util = {
   downloadAudio({ stream, videoId }) {
+    console.log("start download")
     const file = fs.createWriteStream(
       `${process.env.AUDIO_BASE_PATH}${videoId}.m4a`,
       {
@@ -13,6 +14,7 @@ const util = {
   },
 
   uploadAudio(videoId) {
+    console.log("start upload");
     const audioFile = fs.readFileSync(
       `${process.env.AUDIO_BASE_PATH}${videoId}.m4a`
     );
