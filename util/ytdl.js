@@ -12,6 +12,7 @@ const yt = {
     );
     info.formats = formats;
     const contentLength = formats[0].contentLength;
+    console.log(info,contentLength);
     return { info, contentLength };
   },
 };
