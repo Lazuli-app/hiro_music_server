@@ -9,7 +9,6 @@ const util = {
       }
     );
     stream.pipe(file);
-    console.log("ini file",file)
     return file;
   },
 
