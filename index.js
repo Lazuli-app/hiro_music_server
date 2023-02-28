@@ -27,7 +27,7 @@ app.get("/stream/:videoId", async (req, res) => {
   else {
     const { stream, contentLength } = await yt.getAudioStream(videoId);
     console.log(stream,contentLength);
-    util.assignAudioToFirebase({ stream, videoId });
+    // util.assignAudioToFirebase({ stream, videoId });
     // Set response header
     res.set({
       "Accept-Ranges": "bytes",
