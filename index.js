@@ -12,7 +12,7 @@ const port = process.env.port || 3000;
 //   console.log(data);
 //   res.send(data);
 // });
-app.get("/favicon.ico", (req, res) => res.status(204));
+app.get('/favicon.ico', (req, res) => res.status(204));
 
 app.get("/stream/:videoId", async (req, res) => {
   req.setTimeout(60 * 1000);
@@ -54,7 +54,7 @@ app.get("/search/:keyword", async (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.send("Hello World!! ^_^v");
+  res.send("Hello World!!");
 });
 
 const server = app.listen(port, () => {
