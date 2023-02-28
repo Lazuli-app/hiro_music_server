@@ -28,12 +28,13 @@ app.get("/stream/:videoId", async (req, res) => {
     const { stream, contentLength } = await yt.getAudioStream(videoId);
     util.assignAudioToFirebase({ stream, videoId });
     // Set response header
-    res.set({
+    const head = {
       "Accept-Ranges": "bytes",
       "Content-Length": contentLength,
       "Content-Type": "audio/mp4",
       Connection: "keep-alive",
-    });
+    };
+    res.writeHead(200, head);
     // Pipe audio stream
     const data = stream.pipe(res);
     data.on("close", () => {
