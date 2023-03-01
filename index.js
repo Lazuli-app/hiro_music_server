@@ -5,6 +5,7 @@ import util from "./util/util.js";
 import ytsr from "./util/yt-search.js";
 const app = express();
 const port = process.env.port || 3000;
+const { pipeline } = require('stream')
 
 // app.get("/test/:videoId", async (req, res) => {
 //   const videoId = req.params.videoId;
@@ -25,7 +26,6 @@ app.get("/stream/:videoId", async (req, res) => {
   }
   // If Audio not exist in storage
   else {
-    let byte = 0
     const { stream, contentLength } = await yt.getAudioStream(videoId);
     const head = {
       "Accept-Ranges": "bytes",
@@ -34,16 +34,22 @@ app.get("/stream/:videoId", async (req, res) => {
       Connection: "keep-alive",
     };
     res.writeHead(200, head);
-    stream.pipe(res)
+    pipeline(
+        stream,
+        res,
+        err => {
+            if (err)
+              console.error('Pipeline failed.', err);
+            else
+              console.log('Pipeline succeeded.');
+        }
+    )
+    /*stream.pipe(res)
     util.assignAudioToFirebase({ stream, videoId });
 
     // Set response header
     // Pipe audio stream
     const data = stream.pipe(res);
-    data.on("data",(chunk)=>{
-      byte+=chunk.length
-      console.log(byte)
-    })
     data.on("close", () => {
       console.log("destroyed");
     });
@@ -52,8 +58,7 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     data.on("finish", () => {
       console.log("finished");
-    });
-    return data
+    });*/
   }
 });
 
