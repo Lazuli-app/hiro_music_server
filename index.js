@@ -3,9 +3,10 @@ import express from "express";
 import fb from "./util/firebase.js";
 import util from "./util/util.js";
 import ytsr from "./util/yt-search.js";
+import { pipeline } from "stream";
+
 const app = express();
 const port = process.env.port || 3000;
-const { pipeline } = require('stream')
 
 // app.get("/test/:videoId", async (req, res) => {
 //   const videoId = req.params.videoId;
