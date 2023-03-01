@@ -37,13 +37,13 @@ app.get("/stream/:videoId", async (req, res) => {
 
     // Set response header
     // Pipe audio stream
-    stream.on("open",()=>{
-        console.log("jalan");   
-        const data = stream.pipe(res);
-        util.assignAudioToFirebase({ stream, videoId });
-    })
-    
-    /*data.on("close", () => {
+    console.log("jalan");   
+    const data = stream.pipe(res);
+    util.assignAudioToFirebase({ stream, videoId });
+    data.on("open", () => {
+      console.log("start");
+    });
+    data.on("close", () => {
       console.log("destroyed");
     });
     data.on("error", (error) => {
@@ -51,7 +51,7 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     data.on("finish", () => {
       console.log("finished");
-    });*/
+    });
   }
 });
 
