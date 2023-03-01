@@ -33,7 +33,8 @@ app.get("/stream/:videoId", async (req, res) => {
       Connection: "keep-alive",
     };
     res.writeHead(200, head);
-    util.assignAudioToFirebase({ stream, videoId });
+    stream.pipe(res)
+    /*util.assignAudioToFirebase({ stream, videoId });
     // Set response header
     // Pipe audio stream
     const data = stream.pipe(res);
@@ -46,7 +47,7 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     data.on("finish", () => {
       console.log("finished");
-    });
+    });*/
   }
 });
 
