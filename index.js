@@ -34,13 +34,16 @@ app.get("/stream/:videoId", async (req, res) => {
       Connection: "keep-alive",
     };
     res.writeHead(200, head);
-    stream.pipe(res)
     util.assignAudioToFirebase({ stream, videoId });
 
     // Set response header
     // Pipe audio stream
-    const data = stream.pipe(res);
-    data.on("close", () => {
+    stream.on("open",()=>{
+        console.log("jalan");   
+        const data = stream.pipe(res);
+    })
+    
+    /*data.on("close", () => {
       console.log("destroyed");
     });
     data.on("error", (error) => {
@@ -48,7 +51,7 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     data.on("finish", () => {
       console.log("finished");
-    });
+    });*/
   }
 });
 
