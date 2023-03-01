@@ -3,7 +3,6 @@ import express from "express";
 import fb from "./util/firebase.js";
 import util from "./util/util.js";
 import ytsr from "./util/yt-search.js";
-import { pipeline } from "stream";
 
 const app = express();
 const port = process.env.port || 3000;
@@ -35,17 +34,7 @@ app.get("/stream/:videoId", async (req, res) => {
       Connection: "keep-alive",
     };
     res.writeHead(200, head);
-    pipeline(
-        stream,
-        res,
-        err => {
-            if (err)
-              console.error('Pipeline failed.', err);
-            else
-              console.log('Pipeline succeeded.');
-        }
-    )
-    /*stream.pipe(res)
+    stream.pipe(res)
     util.assignAudioToFirebase({ stream, videoId });
 
     // Set response header
@@ -59,7 +48,7 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     data.on("finish", () => {
       console.log("finished");
-    });*/
+    });
   }
 });
 
