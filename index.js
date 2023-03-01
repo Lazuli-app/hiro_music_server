@@ -25,7 +25,7 @@ app.get("/stream/:videoId", async (req, res) => {
   }
   // If Audio not exist in storage
   else {
-    const { stream, contentLength } = yt.getAudioStream(videoId);
+    const { stream, contentLength } = await yt.getAudioStream(videoId);
     const head = {
       "Accept-Ranges": "bytes",
       "Content-Length": contentLength,
@@ -34,7 +34,7 @@ app.get("/stream/:videoId", async (req, res) => {
     };
     res.writeHead(200, head);
     stream.pipe(res)
-    /*util.assignAudioToFirebase({ stream, videoId });
+    util.assignAudioToFirebase({ stream, videoId });
     // Set response header
     // Pipe audio stream
     const data = stream.pipe(res);
@@ -47,7 +47,8 @@ app.get("/stream/:videoId", async (req, res) => {
     });
     data.on("finish", () => {
       console.log("finished");
-    });*/
+    });
+    return data
   }
 });
 
