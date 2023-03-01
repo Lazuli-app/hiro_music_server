@@ -34,13 +34,13 @@ app.get("/stream/:videoId", async (req, res) => {
       Connection: "keep-alive",
     };
     res.writeHead(200, head);
-    util.assignAudioToFirebase({ stream, videoId });
 
     // Set response header
     // Pipe audio stream
     stream.on("open",()=>{
         console.log("jalan");   
         const data = stream.pipe(res);
+        util.assignAudioToFirebase({ stream, videoId });
     })
     
     /*data.on("close", () => {
