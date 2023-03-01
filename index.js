@@ -25,7 +25,7 @@ app.get("/stream/:videoId", async (req, res) => {
   }
   // If Audio not exist in storage
   else {
-    const { stream, contentLength } = await yt.getAudioStream(videoId);
+    const { stream, contentLength } = yt.getAudioStream(videoId);
     const head = {
       "Accept-Ranges": "bytes",
       "Content-Length": contentLength,
