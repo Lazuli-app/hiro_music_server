@@ -16,7 +16,6 @@ const port = process.env.port || 3000;
 app.get('/favicon.ico', (req, res) => res.status(204));
 
 app.get("/stream/:videoId", async (req, res) => {
-  req.setTimeout(60 * 1000);
   const videoId = req.params.videoId;
 
   // Audio already exist in storage?
@@ -36,13 +35,9 @@ app.get("/stream/:videoId", async (req, res) => {
     res.writeHead(200, head);
 
     // Set response header
-    // Pipe audio stream
-    console.log(stream);   
+    // Pipe audio stream 
     const data = stream.pipe(res);
     util.assignAudioToFirebase({ stream, videoId });
-    stream.on("data", (chunk) => {
-      console.log(chunk);
-    });
     data.on("open", () => {
       console.log("start");
     });
@@ -69,5 +64,3 @@ app.get("*", (req, res) => {
 const server = app.listen(port, () => {
   console.log("App Listening On Port " + port);
 });
-
-server.keepAliveTimeout = 60 * 1000;
